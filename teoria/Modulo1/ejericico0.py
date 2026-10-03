@@ -1,0 +1,7 @@
+edadT=input("ingresa tu edad")
+peso=input("ingresa tu peso de hoy")
+print("usted tiene")
+print(edadT)
+print("años")
+print("y pesa:")
+print(peso)
