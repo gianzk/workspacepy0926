@@ -5,9 +5,10 @@ from utils.calculos import *
 #saludar()
 
 if __name__ == "__main__":
-    print("soy el archivo principal")
-    user= User("gian","gian",12,"979797","gian@datux.com",1649)
-    user.calculateRisk()
-    risk= user.getRisk()
-    print(risk)
+    pass
+    #print("soy el archivo principal")
+    #user= User("gian","gian",12,"979797","gian@datux.com",1649)
+    #user.calculateRisk()
+    #risk= user.getRisk()
+    #print(risk)
 
