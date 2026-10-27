@@ -28,7 +28,7 @@ Opciones:
 | Opcion | Para que sirve |
 |---|---|
 | `--filas N` | Cuantas filas generar (por defecto 50 000) |
-| `--salida archivo.csv` | Nombre del archivo de salida |
+| `--output archivo.csv` | Nombre del archivo de output |
 | `--semilla N` | Con la misma semilla sale exactamente la misma data |
 | `--limpio` | Genera data sin errores |
 

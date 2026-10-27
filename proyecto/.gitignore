@@ -1,0 +1,6 @@
+# Archivos que genera el proyecto al correr: no van al repositorio
+__pycache__/
+*.pyc
+*.db
+*.db-journal
+output/

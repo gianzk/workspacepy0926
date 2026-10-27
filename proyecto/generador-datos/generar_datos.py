@@ -12,7 +12,7 @@ intencional: el proyecto debe validar la data, no confiar en ella.
 Uso:
     python generar_datos.py --listar
     python generar_datos.py mipe
-    python generar_datos.py mipe --filas 100000 --salida cartera.csv
+    python generar_datos.py mipe --filas 100000 --output cartera.csv
     python generar_datos.py hipotecas --limpio
 
 Requiere:  pip install faker
@@ -297,7 +297,7 @@ TEMAS = {
 # Generacion
 # ---------------------------------------------------------------------------
 
-def generar(tema, filas, salida, semilla, sucio):
+def generar(tema, filas, output, semilla, sucio):
     descripcion, funcion = TEMAS[tema]
 
     rng = random.Random(semilla)
@@ -306,7 +306,7 @@ def generar(tema, filas, salida, semilla, sucio):
 
     print("Tematica : {} ({})".format(descripcion, tema))
     print("Filas    : {:,}".format(filas).replace(",", " "))
-    print("Salida   : {}".format(salida))
+    print("Output   : {}".format(output))
     print("Data     : {}".format("limpia" if not sucio else "con errores a proposito"))
     print("Generando...")
 
@@ -317,7 +317,7 @@ def generar(tema, filas, salida, semilla, sucio):
     invalidas = 0
     anterior = None
 
-    with open(salida, "w", newline="", encoding="utf-8") as archivo:
+    with open(output, "w", newline="", encoding="utf-8") as archivo:
         escritor = csv.DictWriter(archivo, fieldnames=columnas)
         escritor.writeheader()
 
@@ -371,7 +371,7 @@ def main():
                         help="Muestra las tematicas disponibles")
     parser.add_argument("--filas", type=int, default=50000,
                         help="Cantidad de filas a generar (por defecto 50000)")
-    parser.add_argument("--salida", help="Nombre del archivo CSV de salida")
+    parser.add_argument("--output", help="Nombre del archivo CSV de output")
     parser.add_argument("--semilla", type=int, default=2026,
                         help="Semilla: con la misma semilla sale la misma data")
     parser.add_argument("--limpio", action="store_true",
@@ -393,12 +393,12 @@ def main():
         print("La cantidad de filas debe ser mayor a cero.")
         sys.exit(1)
 
-    salida = args.salida or "data_{}.csv".format(args.tema)
+    output = args.output or "data_{}.csv".format(args.tema)
 
     try:
-        generar(args.tema, args.filas, salida, args.semilla, not args.limpio)
+        generar(args.tema, args.filas, output, args.semilla, not args.limpio)
     except PermissionError:
-        print("No se pudo escribir '{}'. Cierralo si lo tienes abierto.".format(salida))
+        print("No se pudo escribir '{}'. Cierralo si lo tienes abierto.".format(output))
         sys.exit(1)
     except OSError as error:
         print("Error al escribir el archivo: {}".format(error))

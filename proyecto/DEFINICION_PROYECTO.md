@@ -10,7 +10,7 @@ No es un sistema de registro. Nadie va a sentarse a tipear mil clientes a mano. 
 data cruda  →  validación  →  almacenamiento  →  indicadores  →  entregable
 ```
 
-El entregable final es un archivo procesado que **otro equipo recibe y usa**. Esa es la frase que define si el proyecto está bien hecho: si alguien de otra área abre tu archivo de salida y puede tomar una decisión con él, funcionó.
+El entregable final es un archivo procesado que **otro equipo recibe y usa**. Esa es la frase que define si el proyecto está bien hecho: si alguien de otra área abre tu archivo de output y puede tomar una decisión con él, funcionó.
 
 ## El flujo end-to-end
 
@@ -79,7 +79,7 @@ Además:
 ## Entregables
 
 1. El código fuente completo, con la estructura MVC
-2. El CSV de entrada usado y el archivo de salida generado
+2. El CSV de entrada usado y el archivo de output generado
 3. La base de datos SQLite con la data cargada
 4. Un `README.md` que explique: qué área usa esto, qué problema resuelve, cómo se ejecuta y qué significa cada indicador
 5. Sustentación: correr la herramienta en vivo, de principio a fin
