@@ -8,8 +8,8 @@ Dos tablas como minimo:
 La segunda es la que impide cargar dos veces el mismo dia.
 
 Advertencia de rendimiento: NO pongas commit() dentro del bucle de
-insercion. Con 50 000 filas eso tarda minutos. Usa executemany() y un
-solo commit al final.
+insercion. Con 50 000 filas se vuelve de cientos a miles de veces mas
+lento. Usa executemany() y un solo commit al final.
 """
 
 import os
