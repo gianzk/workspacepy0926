@@ -76,6 +76,71 @@ Además:
 - Los errores se muestran al usuario en español y de forma legible. Un `Traceback` en pantalla es un error del proyecto.
 - El volumen mínimo es de **50 000 filas**. A ese tamaño recorrer la data con un `for` se nota lento: por eso se usa pandas.
 
+## Cómo generar tu data
+
+Nadie te entrega la data: **la generas tú**, con el script del curso. Es data
+ficticia, sin ninguna empresa real. Se hace una sola vez por proyecto.
+
+**1. Instala la librería que usa el generador**
+
+```
+pip install faker
+```
+
+**2. Entra a la carpeta del generador y mira las claves disponibles**
+
+```
+cd proyecto\generador-datos
+python generar_datos.py --listar
+```
+
+Cada temática de `TEMATICAS.md` tiene una clave (`mipe`, `cobranzas`,
+`inventario`...). Usa la de tu temática.
+
+**3. Genera tu archivo, dejándolo dentro de la carpeta `data/` de tu proyecto**
+
+```
+python generar_datos.py cobranzas --output ..\mi-proyecto\data\mi_data.csv
+```
+
+Cambia `cobranzas` por tu clave y la ruta por la de tu proyecto. Por defecto
+genera **50 000 filas**, que es el mínimo del proyecto. El nombre del archivo
+debe coincidir con `RUTA_CSV` en tu `main.py`.
+
+**4. Revisa lo que te informa al terminar**
+
+El script imprime cuántas filas escribió y cuántas salieron duplicadas o con algún
+defecto. Esos números son tu **referencia**: tu herramienta debe detectar esas
+filas, no ignorarlas ni caerse con ellas.
+
+**Qué esperar dentro del archivo.** La data sale sucia a propósito:
+
+| Defecto | Ejemplo |
+|---|---|
+| Campos vacíos | un RUC o un monto en blanco |
+| Fechas en dos formatos | `2025-03-14` y `14/03/2025` |
+| Números con coma decimal | `5000,50` en lugar de `5000.50` |
+| Texto con mayúsculas o espacios de más | `COMERCIO`, ` Lima ` |
+| Filas duplicadas | el mismo registro dos veces seguidas |
+
+No uses `--limpio` para tu entrega: esa opción genera data sin defectos y evita
+justo lo que el proyecto quiere que resuelvas.
+
+**Si algo falla**
+
+| Mensaje | Qué hacer |
+|---|---|
+| `Falta la libreria faker` | Ejecuta `pip install faker` |
+| `La tematica '...' no existe` | Revisa la clave con `--listar` |
+| `No se pudo escribir ... Cierralo si lo tienes abierto` | Cierra el CSV en Excel y vuelve a correrlo |
+
+Por defecto, todos los alumnos que elijan la misma temática obtienen los mismos
+datos. Si tu docente te indica una semilla propia, agrégala con `--semilla`:
+
+```
+python generar_datos.py cobranzas --semilla 4471
+```
+
 ## Entregables
 
 1. El código fuente completo, con la estructura MVC
@@ -89,4 +154,3 @@ Además:
 - `TEMATICAS.md` — las temáticas entre las que puedes elegir
 - `generador-datos/` — el script que genera tu CSV
 - `plantilla/` — la estructura de carpetas vacía, lista para copiar
-- `ejemplo-guiado/` — el mismo proyecto resuelto para otra temática, explicado paso a paso

@@ -8,10 +8,24 @@ Elige una. El esfuerzo es equivalente en todas; escoge la que te resulte más f�
 
 La data de todas las temáticas es **generada** con el script `generador-datos/generar_datos.py`. No se usa data de ninguna empresa real ni se trabaja con nombres comerciales: los clientes, productos y operaciones son ficticios.
 
+Cada alumno genera **solo la data de su temática**, una ejecución por archivo. Cada temática tiene una *clave* (indicada abajo en "Clave del generador") que se pasa al script:
+
+```
+cd generador-datos
+python generar_datos.py --listar                 # muestra las 8 claves
+python generar_datos.py cobranzas                # data_cobranzas.csv, 50 000 filas
+python generar_datos.py cobranzas --filas 80000 --output mi_data.csv
+```
+
+Deja el archivo dentro de la carpeta `data/` de tu proyecto. Requiere `pip install faker`.
+El paso a paso completo, con lo que debes esperar dentro del archivo y qué hacer si
+algo falla, está en `DEFINICION_PROYECTO.md`, sección *Cómo generar tu data*.
+
 ---
 
 ## 1. Riesgo crediticio de cartera MIPE
 **Área usuaria:** Créditos y Riesgos
+**Clave del generador:** `mipe`
 **Pregunta de negocio:** ¿Cuánto dinero tenemos expuesto y en qué clientes se concentra el riesgo?
 
 - **Entidad principal:** cliente con un crédito vigente
@@ -22,6 +36,7 @@ La data de todas las temáticas es **generada** con el script `generador-datos/g
 
 ## 2. Evaluación de solicitudes hipotecarias
 **Área usuaria:** Banca Hipotecaria
+**Clave del generador:** `hipotecas`
 **Pregunta de negocio:** ¿Qué solicitudes pasan el filtro y cuánto financiamiento representan?
 
 - **Entidad principal:** solicitud de crédito hipotecario
@@ -32,6 +47,7 @@ La data de todas las temáticas es **generada** con el script `generador-datos/g
 
 ## 3. Gestión de mora y cobranzas
 **Área usuaria:** Cobranzas
+**Clave del generador:** `cobranzas`
 **Pregunta de negocio:** ¿A quién llamamos primero mañana?
 
 - **Entidad principal:** cuota vencida
@@ -42,6 +58,7 @@ La data de todas las temáticas es **generada** con el script `generador-datos/g
 
 ## 4. Rotación y quiebre de stock
 **Área usuaria:** Logística y Compras
+**Clave del generador:** `inventario`
 **Pregunta de negocio:** ¿Qué compramos esta semana y qué dejamos de comprar?
 
 - **Entidad principal:** movimiento de inventario por producto y local
@@ -52,6 +69,7 @@ La data de todas las temáticas es **generada** con el script `generador-datos/g
 
 ## 5. Fuga de clientes en servicios por suscripción
 **Área usuaria:** Retención y Comercial
+**Clave del generador:** `suscripciones`
 **Pregunta de negocio:** ¿Qué clientes están por irse y cuánto ingreso se va con ellos?
 
 - **Entidad principal:** cliente con plan activo
@@ -62,6 +80,7 @@ La data de todas las temáticas es **generada** con el script `generador-datos/g
 
 ## 6. Costos y eficiencia de flota de reparto
 **Área usuaria:** Operaciones y Distribución
+**Clave del generador:** `flota`
 **Pregunta de negocio:** ¿Qué rutas nos están costando más de lo que deberían?
 
 - **Entidad principal:** viaje realizado
@@ -72,6 +91,7 @@ La data de todas las temáticas es **generada** con el script `generador-datos/g
 
 ## 7. Productividad y ausentismo de personal
 **Área usuaria:** Recursos Humanos
+**Clave del generador:** `personal`
 **Pregunta de negocio:** ¿Dónde se nos está yendo la hora-hombre?
 
 - **Entidad principal:** registro de asistencia mensual por colaborador
@@ -82,6 +102,7 @@ La data de todas las temáticas es **generada** con el script `generador-datos/g
 
 ## 8. Siniestralidad de pólizas
 **Área usuaria:** Suscripción de Seguros
+**Clave del generador:** `seguros`
 **Pregunta de negocio:** ¿Qué segmentos nos están costando más de lo que nos pagan?
 
 - **Entidad principal:** póliza con sus siniestros del período

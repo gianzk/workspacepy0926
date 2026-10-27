@@ -5,11 +5,10 @@ indicadores y entrega un archivo procesado para otra area de la empresa.
 
 ## Por donde empezar
 
-1. Lee **`DEFINICION_PROYECTO.md`** — que se construye y por que
+1. Lee **`DEFINICION_PROYECTO.md`** — que se construye, por que, y como generar tu data
 2. Elige tu tema en **`TEMATICAS.md`**
 3. Genera tu data con **`generador-datos/`**
 4. Copia **`plantilla/`** y empieza a trabajar
-5. Si te trabas, revisa **`ejemplo-guiado/`**
 
 ## Generar tu data
 
@@ -44,6 +43,5 @@ proyecto/
 ├── DEFINICION_PROYECTO.md    Proposito, flujo y requisitos
 ├── TEMATICAS.md              Temas entre los que elegir
 ├── generador-datos/          Script que genera tu CSV
-├── ejemplo-guiado/           El proyecto resuelto, paso a paso
 └── plantilla/                Estructura vacia para tu proyecto
 ```
