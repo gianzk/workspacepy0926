@@ -8,14 +8,40 @@ Ponle la fecha en el nombre para que el de hoy no pise el de ayer.
 import os
 from datetime import date
 
-import pandas as pd
+from app.modelo.indicadores import _nivel, preparar
+
+COLUMNAS_LEGIBLES = {
+    "ruc": "RUC",
+    "razon_social": "Razón social",
+    "sector": "Sector",
+    "departamento": "Departamento",
+    "monto_otorgado": "Monto otorgado",
+    "saldo_actual": "Saldo actual",
+    "dias_atraso": "Días de atraso",
+    "ventas_anuales": "Ventas anuales",
+    "antiguedad_meses": "Antigüedad (meses)",
+    "fecha_desembolso": "Fecha de desembolso",
+}
 
 
 def generar(registros, carpeta_output):
     """
-    TODO: escribe el archivo y devuelve (ruta, filas_escritas).
+    Escribe el archivo y devuelve (ruta, filas_escritas).
 
-    Usa nombres de columna legibles para quien lo abra: "Saldo actual",
-    no "saldo_actual". Quien recibe esto no programa.
+    Genera .xlsx; si openpyxl no esta instalado, genera .csv.
     """
-    raise NotImplementedError
+    os.makedirs(carpeta_output, exist_ok=True)
+
+    df = preparar(registros)
+    df["nivel_riesgo"] = df["dias_atraso"].apply(_nivel)
+    df = df.rename(columns=COLUMNAS_LEGIBLES)
+    df = df.rename(columns={"nivel_riesgo": "Nivel de riesgo"})
+
+    base = os.path.join(carpeta_output, "cartera_{}".format(date.today().isoformat()))
+    try:
+        ruta = base + ".xlsx"
+        df.to_excel(ruta, index=False)
+    except ImportError:
+        ruta = base + ".csv"
+        df.to_csv(ruta, index=False, encoding="utf-8-sig")  # tildes OK en Excel
+    return ruta, len(df)

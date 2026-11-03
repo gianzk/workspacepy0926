@@ -113,8 +113,10 @@ class Repositorio:
         raise NotImplementedError
 
     def listar(self):
-        """TODO: devuelve la data como lista de diccionarios."""
-        raise NotImplementedError
+        """Devuelve la data como lista de diccionarios."""
+        cursor = self.conexion.execute("SELECT * FROM clientes")
+        columnas = [c[0] for c in cursor.description]
+        return [dict(zip(columnas, fila)) for fila in cursor.fetchall()]
 
     def cerrar(self):
         self.conexion.close()

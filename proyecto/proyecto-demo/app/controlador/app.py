@@ -7,7 +7,7 @@ No calcula ni imprime. Si aqui aparece un print(), algo se hizo mal.
 
 import os
 
-from app.modelo import ingesta
+from app.modelo import ingesta, indicadores, exportador
 from app.vista import consola
 from app.modelo.repositorio import Repositorio
 
@@ -41,16 +41,56 @@ class Aplicacion:
         print("se han registrado",cantidad)
 
     def ver_indicadores(self):
-        # usar librerias para ver tablas , consola 
-        # mostrar datos 
-        raise NotImplementedError
+        registros = self.repositorio.listar()
+        if not registros:
+            print("no hay data cargada, usa la opcion 1")
+            return
+        try:
+            ind = indicadores.calcular(registros)
+        except Exception as e:
+            print("error al calcular los indicadores", e)
+            return
+
+        print("=== INDICADORES DE CARTERA ===")
+        print("Total de clientes:      {:>15,}".format(ind["total_clientes"]))
+        print("Monto otorgado total:   {:>15,.2f}".format(ind["monto_otorgado_total"]))
+        print("Saldo total:            {:>15,.2f}".format(ind["saldo_total"]))
+        print("Cartera en mora (>30d): {:>15,.2f}".format(ind["cartera_en_mora"]))
+        print("% de mora:              {:>14.2f}%".format(ind["porcentaje_mora"]))
+
+        print()
+        print("Distribucion por nivel de riesgo")
+        print("{:<12}{:>10}{:>18}".format("Nivel", "Clientes", "Saldo"))
+        for fila in ind["distribucion_riesgo"]:
+            print("{:<12}{:>10,}{:>18,.2f}".format(
+                fila["nivel"], fila["clientes"], fila["saldo"]))
+        if ind["sin_dato_riesgo"]:
+            print("{:,} clientes sin dias de atraso valido (no clasificados)".format(
+                ind["sin_dato_riesgo"]))
+
+        for titulo, clave in (("Top sectores por saldo", "saldo_por_sector"),
+                              ("Top departamentos por saldo", "saldo_por_departamento")):
+            print()
+            print(titulo)
+            print("{:<20}{:>10}{:>18}".format("Nombre", "Clientes", "Saldo"))
+            for fila in ind[clave]:
+                print("{:<20}{:>10,}{:>18,.2f}".format(
+                    fila["nombre"], fila["clientes"], fila["saldo"]))
 
     def explorar(self):
         raise NotImplementedError
 
     def generar_entregable(self):
-        #
-        raise NotImplementedError
+        registros = self.repositorio.listar()
+        if not registros:
+            print("no hay data cargada, usa la opcion 1")
+            return
+        try:
+            ruta, filas = exportador.generar(registros, self.carpeta_output)
+        except Exception as e:
+            print("error al generar el entregable", e)
+            return
+        print("entregable generado:", ruta, "-", filas, "filas")
 
     def ver_historial(self):
         raise NotImplementedError
